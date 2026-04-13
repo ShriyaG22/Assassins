@@ -1,0 +1,73 @@
+:root {
+  --bg: #0a0a0b;
+  --surface: #141416;
+  --surface-hover: #1c1c20;
+  --card: #18181c;
+  --border: #2a2a30;
+  --border-light: #3a3a42;
+  --red: #e53e3e;
+  --red-glow: rgba(229, 62, 62, 0.15);
+  --red-muted: #c53030;
+  --gold: #d4a853;
+  --gold-glow: rgba(212, 168, 83, 0.12);
+  --green: #48bb78;
+  --green-glow: rgba(72, 187, 120, 0.12);
+  --blue: #4299e1;
+  --blue-glow: rgba(66, 153, 225, 0.12);
+  --text: #f0ece4;
+  --text-muted: #8a8690;
+  --text-dim: #5a5660;
+  --font-display: 'Playfair Display', serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+::selection { background: var(--red); color: white; }
+input::placeholder { color: var(--text-dim); }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 2px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+@keyframes slideIn { from { opacity:0; transform:translateX(-20px); } to { opacity:1; transform:translateX(0); } }
+@keyframes glow { 0%,100% { box-shadow:0 0 20px var(--red-glow); } 50% { box-shadow:0 0 40px rgba(229,62,62,0.3); } }
+@keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+@keyframes grain {
+  0%,100% { transform:translate(0,0); } 10% { transform:translate(-5%,-10%); }
+  30% { transform:translate(3%,-15%); } 50% { transform:translate(12%,9%); }
+  70% { transform:translate(9%,4%); } 90% { transform:translate(-1%,7%); }
+}
+
+.fade-up { animation: fadeUp 0.3s ease both; }
+.fade-in { animation: fadeIn 0.3s ease both; }
+.slide-in { animation: slideIn 0.3s ease both; }
+
+.app-shell {
+  position: relative;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 20px;
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.noise-overlay {
+  position: fixed; top:-50%; left:-50%; width:200%; height:200%;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; animation: grain 8s steps(10) infinite; z-index:0; opacity:0.5;
+}
